@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:wedding_back_office/login/page/page_login.dart';
-import 'package:wedding_back_office/page_pannel.dart';
+import 'package:wedding_back_office/panel/page/page_pannel.dart';
 
 void main() {
   runApp(const MyApp());
