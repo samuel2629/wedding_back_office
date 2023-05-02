@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "558180308375",
+    "project_id": "kiukiu-51c46",
+    "storage_bucket": "kiukiu-51c46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558180308375:android:6bc97f7b2de4e4da3da0d2",
+        "android_client_info": {
+          "package_name": "com.joan.samuel.wedding_back_office"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558180308375-g9a0cpmbkq0qggiuembs7u1mmfeh83jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8Bp8NzgyxDhs7VXWCDly1G-6S9MvrDa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558180308375-g9a0cpmbkq0qggiuembs7u1mmfeh83jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "558180308375-f2dcrsguofp8sj5lu8tc9jsctb5497cv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.joansamuel.wedding"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558180308375:android:f11d1c059f37083a3da0d2",
+        "android_client_info": {
+          "package_name": "com.joansamuel.wedding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558180308375-g9a0cpmbkq0qggiuembs7u1mmfeh83jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8Bp8NzgyxDhs7VXWCDly1G-6S9MvrDa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558180308375-g9a0cpmbkq0qggiuembs7u1mmfeh83jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "558180308375-f2dcrsguofp8sj5lu8tc9jsctb5497cv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.joansamuel.wedding"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wedding_back_office/components/colors.dart';
+import 'package:wedding_back_office/common/components/colors.dart';
 import 'package:wedding_back_office/login/controller/controller_login.dart';
 import 'package:wedding_back_office/panel/page/page_pannel.dart';
 

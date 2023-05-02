@@ -13,6 +13,8 @@ dependencies:
   animations: ^2.0.7
   responsive_sizer: ^3.1.1
   get: ^4.6.5
+  cloud_firestore: ^4.3.2
+  firebase_core: ^2.5.0
 
 dev_dependencies:
   flutter_test:

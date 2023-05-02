@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wedding_back_office/common/controller/controller_common.dart';
 import 'package:wedding_back_office/panel/controller/controller_panel.dart';
 
 class PanelPage extends StatefulWidget {
@@ -15,11 +16,13 @@ class PanelPage extends StatefulWidget {
 class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
 
   final _controllerPanel = Get.put(PanelController());
+  final _controllerCommon = Get.put(CommonController());
   late TabController tabController;
   late int length;
 
   @override
   void initState() {
+    _controllerCommon.retrieveUsers();
     length = 2;
     super.initState();
   }
@@ -37,14 +40,15 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
 
     return Scaffold(
       //backgroundColor: lightColor.withOpacity(0.05),
-      body: Container(
+      body: Obx(() => Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/3.jpg"),
               fit: BoxFit.cover,
+              opacity: 0.25
             )),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -61,14 +65,14 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
             ],
           ),
         ),
-      ),
+      )),
     );
   }
 
   Container buildSideBar() {
     return Container(
       width: 250,
-      color: Colors.white.withOpacity(0.2),
+      color: Colors.white.withOpacity(0.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +209,7 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
                               ),
                               Center(child: Column(
                                 children: [
-                                  Text("450", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xff4E80EE)),),
+                                  Text(_controllerCommon.users.value?.length.toString() ?? "0", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xff4E80EE)),),
                                   Text("Guests", style: GoogleFonts.varelaRound(fontSize: 20, fontWeight: FontWeight.normal, color: const Color(0xff4E80EE)),),
                                 ],
                               ),)
