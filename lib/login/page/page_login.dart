@@ -135,7 +135,11 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             onPressed: (){
-                              Get.off(const PanelPage());
+                              if(_usernameTextEditingController.text == _controllerLogin.username.value && _passwordTextEditingController.text == _controllerLogin.password.value) {
+                                Get.off(const PanelPage());
+                              } else {
+                                Get.snackbar("Error!", "Username or password are wrong.").show();
+                              }
                             }, child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                           width: 100,

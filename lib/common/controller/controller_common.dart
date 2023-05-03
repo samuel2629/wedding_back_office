@@ -11,7 +11,6 @@ class CommonController extends GetxController{
     var init = FirebaseFirestore.instance.collection("invites").withConverter(fromFirestore: Invite.fromFirestore,
       toFirestore: (Invite invite, _) => invite.toFirestore(),);
     var retrieve = await init.get();
-    var d = retrieve.docs.map((e) => e.data()).toList();
     users.value = retrieve.docs.map((e) => e.data()).toList();
   }
 

@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wedding_back_office/common/components/colors.dart';
 import 'package:wedding_back_office/common/controller/controller_common.dart';
+import 'package:wedding_back_office/common/view/profile_picture/profile_picture.dart';
 import 'package:wedding_back_office/panel/controller/controller_panel.dart';
 
 class PanelPage extends StatefulWidget {
@@ -39,7 +42,6 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
     });
 
     return Scaffold(
-      //backgroundColor: lightColor.withOpacity(0.05),
       body: Obx(() => Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -59,7 +61,8 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   buildTabBar(context),
-                  buildRowCardsInvites()
+                  buildRowCardsInvites(),
+                  buildRepertoireList(context)
                 ],
               ))
             ],
@@ -67,6 +70,18 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
         ),
       )),
     );
+  }
+
+  Color returnColorForUserAvatar(int status){
+    if(status == 0) {
+      return const Color(0xffE9A23B);
+    } else if(status == 1) {
+      return const Color(0xff5EC269);
+    } else if(status == 2) {
+      return const Color(0xffDD524C);
+    } else {
+      return const Color(0xff4E80EE);
+    }
   }
 
   Container buildSideBar() {
@@ -236,7 +251,7 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
                               ),
                               Center(child: Column(
                                 children: [
-                                  Text("213", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xff5EC269)),),
+                                  Text(_controllerCommon.users.value?.where((element) => element.status == 1).toList().length.toString() ?? "0", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xff5EC269)),),
                                   Text("Accepted", style: GoogleFonts.varelaRound(fontSize: 20, fontWeight: FontWeight.normal, color: const Color(0xff5EC269)),),
                                 ],
                               ),)
@@ -259,12 +274,12 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0, top: 24, bottom: 12),
-                                child: Text('Unknown', style: GoogleFonts.varelaRound(fontWeight: FontWeight.normal, fontSize: 22),),
+                                child: Text('Awaiting', style: GoogleFonts.varelaRound(fontWeight: FontWeight.normal, fontSize: 22),),
                               ),
                               Center(child: Column(
                                 children: [
-                                  Text("127", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xffE9A23B)),),
-                                  Text("Awaiting", style: GoogleFonts.varelaRound(fontSize: 20, fontWeight: FontWeight.normal, color: const Color(0xffE9A23B)),),
+                                  Text(_controllerCommon.users.value?.where((element) => element.status == 0).toList().length.toString() ?? "0", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xffE9A23B)),),
+                                  Text("Unknow", style: GoogleFonts.varelaRound(fontSize: 20, fontWeight: FontWeight.normal, color: const Color(0xffE9A23B)),),
                                 ],
                               ),)
                             ],
@@ -290,8 +305,8 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
                                 ),
                                 Center(child: Column(
                                   children: [
-                                    Text("253", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xffDD524C)),),
-                                    Text("Missings", style: GoogleFonts.varelaRound(fontSize: 20, fontWeight: FontWeight.normal, color: const Color(0xffDD524C)),),
+                                    Text(_controllerCommon.users.value?.where((element) => element.status == 2).toList().length.toString() ?? "0", style: GoogleFonts.varelaRound(fontSize: 54, fontWeight: FontWeight.normal, color: const Color(0xffDD524C)),),
+                                    Text("Absent", style: GoogleFonts.varelaRound(fontSize: 20, fontWeight: FontWeight.normal, color: const Color(0xffDD524C)),),
                                   ],
                                 ),)
                               ],
@@ -302,5 +317,171 @@ class _PanelPageState extends State<PanelPage> with TickerProviderStateMixin {
                   ),
                 );
   }
+
+
+  Widget buildRepertoireList(BuildContext context) {
+    SuspensionUtil.sortListBySuspensionTag(_controllerCommon.users.value);
+    SuspensionUtil.setShowSuspensionStatus(_controllerCommon.users.value);
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Flexible(
+          fit: FlexFit.loose,
+          child: SafeArea(
+            child: AzListView(
+              indexBarWidth: 40 ,
+              indexBarMargin:
+              const EdgeInsets.only(right: 24, top: 24, bottom: 24),
+              indexHintBuilder: (context, hint) => Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: strongColor),
+                  alignment: Alignment.center,
+                  child: Text(hint,
+                      style:
+                      GoogleFonts.varelaRound(fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontSize: 18)
+                  ),
+                ),
+              indexBarItemHeight: MediaQuery.of(context).size.height / 50,
+              indexBarOptions: IndexBarOptions(
+                  textStyle: GoogleFonts.varelaRound(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF828282).withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  downDecoration: BoxDecoration(
+                    color: const Color(0xFF828282).withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  selectTextStyle:
+                  GoogleFonts.varelaRound(
+                    color: strongColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ) ,
+                  selectItemDecoration: const BoxDecoration(),
+                  needRebuild: true,
+                  indexHintAlignment: Alignment.centerRight,
+                  indexHintOffset: const Offset(0, 0)),
+              padding: const EdgeInsets.only(top: 16),
+              indexBarData: const [
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'J',
+                'K',
+                'L',
+                'M',
+                'N',
+                'O',
+                'P',
+                'Q',
+                'R',
+                'S',
+                'T',
+                'U',
+                'V',
+                'W',
+                'X',
+                'Y',
+                'Z',
+              ],
+              data: _controllerCommon.users.value ?? [],
+              itemCount: _controllerCommon.users.value?.length ?? 0,
+              itemBuilder: buildSirklRepertoire,
+            ),
+          )),
+    );
+  }
+
+  Widget buildSirklRepertoire(BuildContext context, int index) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        index == 0
+            ? Padding(
+          padding: const EdgeInsets.only(left: 24.0, bottom: 0),
+          child: Text(
+            "GUESTS",
+            style:
+            GoogleFonts.varelaRound(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+    fontSize: 18
+            )
+          ),
+        )
+            : Container(),
+        Offstage(
+          offstage: !_controllerCommon.users.value![index].isShowSuspension,
+          child: Container(
+            padding: EdgeInsets.only(left: 24, right: 92, top: index == 0 ? 16 : 48),
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                Text(
+                  _controllerCommon.users.value![index].nom![0].toUpperCase(),
+                  softWrap: false,
+                  style:
+                  GoogleFonts.varelaRound(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20
+                  )
+                ),
+                const Expanded(
+                    child: Divider(
+                      color: Color(0xFF828282),
+                      height: 2,
+                      indent: 10.0,
+                    ))
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            children: [
+              !_controllerCommon.users.value![index].isShowSuspension
+                  ? Divider(
+                  color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                      ? const Color(0xFF9BA0A5)
+                      : const Color(0xFF828282),
+                  indent: 84,
+                  endIndent: 96,
+                  thickness: 0.1)
+                  : Container(),
+              _controllerCommon.users.value![index].isShowSuspension
+                  ? const SizedBox(
+                height: 24,
+              )
+                  : const SizedBox(height: 8,),
+              ListTile(
+                leading: ProfilePicture(radius: 31, name: _controllerCommon.users.value?[index].nom ?? "", fontsize: 16, color: returnColorForUserAvatar(_controllerCommon.users.value![index].status!)),
+                title: Text(_controllerCommon.users.value?[index].nom ?? "", style: GoogleFonts.varelaRound(),),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+
 
 }

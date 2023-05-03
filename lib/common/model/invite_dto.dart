@@ -1,6 +1,7 @@
+import 'package:azlistview/azlistview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Invite {
+class Invite extends ISuspensionBean{
   final String? nom;
   final bool? admin;
   final int? table;
@@ -37,5 +38,10 @@ class Invite {
       if (status != null) "Status": status,
       if (shabbat != null) "Shabbat": shabbat
     };
+  }
+
+  @override
+  String getSuspensionTag() {
+    return nom![0];
   }
 }
